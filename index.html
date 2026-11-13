@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>¿En qué mesa estoy? — 2º Taller PEDI-FOUNNE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B3F71;
+    --navy-2:#14507F;
+    --light:#F5F6FA;
+    --white:#FFFFFF;
+    --violet:#7654A0;
+    --violet-l:#B5A5CD;
+    --blue-l:#9BB4D2;
+    --blue-t:#C5D5E8;
+    --gray:#64708A;
+    --line:#DCE1EA;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:var(--light);
+    font-family:'Archivo', Arial, sans-serif;
+    color:var(--navy);
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* ---------- cabecera institucional ---------- */
+  header{background:var(--navy);padding:clamp(28px,7vw,44px) clamp(22px,6vw,34px) clamp(20px,5vw,30px);}
+  .eyebrow{
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--blue-l);
+    font-size:clamp(12px,3.1vw,14px);
+    margin:0 0 10px;
+  }
+  h1{
+    font-size:clamp(30px,8.4vw,40px);
+    font-weight:700;line-height:1.1;color:var(--light);
+    margin:0;
+  }
+  .rule{width:92px;height:6px;background:var(--violet);border-radius:3px;margin-top:18px;}
+  .wave{display:block;width:100%;height:auto;margin-top:-1px;}
+
+  main{flex:1;width:100%;max-width:460px;margin:0 auto;padding:clamp(24px,6vw,34px) clamp(22px,6vw,28px) 40px;}
+
+  .lead{font-size:clamp(15px,3.8vw,16.5px);line-height:1.5;color:var(--gray);margin:0 0 clamp(22px,5vw,28px);}
+
+  label{
+    display:block;
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+    font-size:clamp(12px,3vw,13px);
+    color:var(--violet);
+    margin-bottom:9px;
+  }
+  input[type="text"], select{
+    width:100%;
+    font-family:'Archivo', Arial, sans-serif;
+    font-weight:600;
+    font-size:clamp(16px,4.2vw,18px);
+    padding:15px 16px;
+    border-radius:10px;
+    border:1.5px solid var(--line);
+    background:var(--white);
+    color:var(--navy);
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  input[type="text"]:focus, select:focus{
+    border-color:var(--navy);
+    box-shadow:0 0 0 4px rgba(11,63,113,.12);
+  }
+  input[type="text"]::placeholder{color:#98A3B6;font-weight:400;}
+  select{
+    -webkit-appearance:none;appearance:none;
+    background-image:linear-gradient(45deg,transparent 50%,var(--navy) 50%),linear-gradient(135deg,var(--navy) 50%,transparent 50%);
+    background-position:calc(100% - 21px) calc(50% + 2px),calc(100% - 15px) calc(50% + 2px);
+    background-size:6px 6px,6px 6px;
+    background-repeat:no-repeat;
+  }
+  .hint{font-size:clamp(12.5px,3.1vw,13.5px);color:var(--gray);margin:9px 0 0;}
+  .field{margin-top:22px;}
+
+  .go{
+    display:block;width:100%;margin-top:26px;
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+    font-size:clamp(14px,3.6vw,15.5px);
+    padding:17px 0;border:none;border-radius:10px;cursor:pointer;
+    background:var(--navy);color:var(--light);
+    transition:background .15s ease, transform .1s ease;
+  }
+  .go:hover{background:var(--navy-2);}
+  .go:active{transform:scale(.985);}
+
+  .results{margin-top:clamp(24px,6vw,32px);}
+
+  /* ---------- resultado ---------- */
+  .mesa-label{
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.2em;
+    font-size:clamp(13px,3.3vw,14px);color:var(--gray);
+    text-align:center;margin:0 0 12px;
+  }
+  .mesa-box{
+    background:var(--white);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:clamp(18px,5vw,26px) 16px;
+    text-align:center;
+    animation:rise .3s ease both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .mesa-number{
+    font-size:clamp(76px,22vw,104px);
+    font-weight:700;line-height:1;color:var(--navy);
+    font-variant-numeric:tabular-nums;
+  }
+  .persona{
+    margin:18px 0 0;text-align:center;
+  }
+  .persona .nombre{font-size:clamp(16px,4.2vw,18px);font-weight:600;color:var(--navy);}
+  .persona .claustro{
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+    font-size:clamp(12px,3vw,13px);color:var(--gray);margin-top:4px;
+  }
+  .caption{font-size:clamp(13.5px,3.4vw,14.5px);color:var(--gray);text-align:center;margin:16px 0 0;line-height:1.5;}
+
+  .aviso{
+    margin-top:18px;
+    background:rgba(118,84,160,.07);
+    border:1.5px solid var(--line);
+    border-left:4px solid var(--violet);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:clamp(13px,3.3vw,14px);line-height:1.5;color:var(--navy);
+  }
+  .aviso strong{color:var(--violet);}
+
+  .nota{
+    background:var(--white);
+    border:1.5px solid var(--line);
+    border-left:4px solid var(--violet);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:clamp(13.5px,3.4vw,14.5px);line-height:1.5;color:var(--navy);
+  }
+  .nota strong{color:var(--violet);}
+
+  /* ---------- varias coincidencias ---------- */
+  .matchlist{display:flex;flex-direction:column;gap:10px;}
+  .match-item{
+    text-align:left;width:100%;
+    background:var(--white);
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:13px 15px;
+    font-family:'Archivo', Arial, sans-serif;
+    cursor:pointer;
+    transition:border-color .15s ease, transform .1s ease;
+  }
+  .match-item:hover{border-color:var(--navy);}
+  .match-item:active{transform:scale(.98);}
+  .match-name{font-weight:600;font-size:clamp(14.5px,3.7vw,15.5px);color:var(--navy);}
+  .match-claustro{
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+    font-size:clamp(11.5px,2.9vw,12.5px);color:var(--gray);margin-top:3px;
+  }
+
+  .change-search{
+    display:block;width:100%;text-align:center;
+    background:none;border:none;cursor:pointer;
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.11em;
+    font-size:clamp(12.5px,3.1vw,13.5px);color:var(--violet);
+    text-decoration:underline;text-underline-offset:3px;
+    padding:20px 0 0;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    margin:0 clamp(22px,6vw,28px);
+    padding:20px 0 30px;
+    text-align:center;
+    font-size:clamp(11.5px,2.9vw,12.5px);
+    line-height:1.5;
+    color:var(--gray);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Taller Participativo 2 · PEDI 2027–2032</p>
+  <h1>¿En qué mesa<br>estoy?</h1>
+  <div class="rule"></div>
+</header>
+<svg class="wave" viewBox="0 0 1920 92" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  <defs><linearGradient id="onda" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#4096AB"/><stop offset="0.55" stop-color="#4B7AB2"/><stop offset="1" stop-color="#7654A0"/>
+  </linearGradient></defs>
+  <path d="M0 0H1920V70Q960 -40 0 70Z" fill="#0B3F71"/>
+  <path d="M0 70Q960 -40 1920 70" fill="none" stroke="url(#onda)" stroke-width="10"/>
+</svg>
+
+<main>
+  <p class="lead">Completá tu nombre y tu claustro para ver en qué mesa te toca sentarte.</p>
+
+  <label for="q">Apellido y nombre</label>
+  <input type="text" id="q" placeholder="Ej: Gómez Ana" autocomplete="off" autocapitalize="words">
+  <p class="hint">Podés escribir solo el apellido.</p>
+
+  <div class="field">
+    <label for="cl">Claustro</label>
+    <select id="cl"><option value="">Elegí tu claustro…</option></select>
+  </div>
+
+  <button class="go" id="goBtn">Ver mi mesa</button>
+
+  <div class="results" id="results"></div>
+</main>
+
+<footer>
+  Plan Estratégico de Desarrollo Institucional · Facultad de Odontología · UNNE
+</footer>
+
+<script>
+const DATA = [{"n": "MARIA ESTER RESOAGLI", "c": "Docente", "m": 1}, {"n": "Rosa Fabiana Puretz", "c": "Docente", "m": 1}, {"n": "Viviana Martha Rodriguez", "c": "Docente", "m": 1}, {"n": "Melisa Raquel Lezcano", "c": "Investigador/a", "m": 1}, {"n": "Mariana Peñalva", "c": "Estudiante de grado", "m": 1}, {"n": "Noemí Elizabeth Rolon", "c": "Estudiante de grado", "m": 1}, {"n": "Félix María Ramón Delgado", "c": "Personal no docente", "m": 1}, {"n": "Ramona Magdalena Romero", "c": "Personal no docente", "m": 1}, {"n": "Alejandro Joaquin Encina Tutuy", "c": "Docente", "m": 2}, {"n": "Jorge alberto Toñanez Christoff", "c": "Docente", "m": 2}, {"n": "Maria Florencia Maldonado Seniquel", "c": "Docente", "m": 2}, {"n": "Ana Eloísa Rea", "c": "Investigador/a", "m": 2}, {"n": "Ponce Jorge Orlando", "c": "Investigador/a", "m": 2}, {"n": "Milagros Agostina  Benitez Vallejos", "c": "Estudiante de grado", "m": 2}, {"n": "Jessica Lorena Mendiaz", "c": "Personal no docente", "m": 2}, {"n": "RITA IGNACIA, MAMBRIN", "c": "Personal no docente", "m": 2}, {"n": "Altamirano Ricardo Hugo", "c": "Docente", "m": 3}, {"n": "José Alfredo Yaya", "c": "Docente", "m": 3}, {"n": "María Julia López Vallejos", "c": "Docente", "m": 3}, {"n": "Carlos Daniel Lugo De Langhe", "c": "Investigador/a", "m": 3}, {"n": "Sandra Elena Martínez", "c": "Investigador/a", "m": 3}, {"n": "Milagros Aymara Rodríguez Morales", "c": "Estudiante de grado", "m": 3}, {"n": "Lorena fernanda Ruiz", "c": "Personal no docente", "m": 3}, {"n": "Rodrigo maximiliano Sánchez", "c": "Personal no docente", "m": 3}, {"n": "Alvaro Monzon Wyngaard", "c": "Docente", "m": 4}, {"n": "José Osvaldo Olivarez", "c": "Docente", "m": 4}, {"n": "Maria Silvina Dho", "c": "Docente", "m": 4}, {"n": "Diana Emilia Falcón", "c": "Investigador/a", "m": 4}, {"n": "Aillen Abigail Almua", "c": "Estudiante de grado", "m": 4}, {"n": "Nicolás Ezequiel Llarens", "c": "Estudiante de grado", "m": 4}, {"n": "Maria Carla Velar", "c": "Personal no docente", "m": 4}, {"n": "Sandra Monica Ferreyra", "c": "Personal no docente", "m": 4}, {"n": "JUAN MARCOS Vallejos", "c": "Docente", "m": 5}, {"n": "MARTA ROSANA BRIEND", "c": "Docente", "m": 5}, {"n": "Pedro Luis Fortin", "c": "Docente", "m": 5}, {"n": "Edgardo Daniel Acevedo", "c": "Investigador/a", "m": 5}, {"n": "Alana Rodríguez Villa", "c": "Estudiante de grado", "m": 5}, {"n": "Romero Agostina Maria Itati", "c": "Estudiante de grado", "m": 5}, {"n": "Marcela Alejandra Solís", "c": "Personal no docente", "m": 5}, {"n": "Saúl Edgardo de la Cruz Rodriguez", "c": "Personal no docente", "m": 5}, {"n": "Andrés Benetti", "c": "Docente", "m": 6}, {"n": "Horacio Javier Romero", "c": "Docente", "m": 6}, {"n": "Karina Emylsen Trangoni", "c": "Docente", "m": 6}, {"n": "Miguel Angel Vera", "c": "Docente", "m": 6}, {"n": "Juan José Christiani", "c": "Investigador/a", "m": 6}, {"n": "Celene Ayala", "c": "Estudiante de grado", "m": 6}, {"n": "Maria Laura Rosende", "c": "Personal no docente", "m": 6}, {"n": "YOLANDA BEATRIZ ROMAN", "c": "Personal no docente", "m": 6}, {"n": "Carlos ruben caramello", "c": "Docente", "m": 7}, {"n": "Karina Latyn", "c": "Docente", "m": 7}, {"n": "Natalia Belen Montiel", "c": "Docente", "m": 7}, {"n": "KARINA CYNTHIA VANESA OBREGÓN", "c": "Investigador/a", "m": 7}, {"n": "Francesca Carla Casco", "c": "Estudiante de grado", "m": 7}, {"n": "Yuliana Valentina Rodriguez", "c": "Estudiante de grado", "m": 7}, {"n": "Maria Sara Bazzola", "c": "Personal no docente", "m": 7}, {"n": "Armando Emmanuel Gomez Sanches", "c": "Graduado/a", "m": 7}, {"n": "Andrea Veronica Galiana", "c": "Docente", "m": 8}, {"n": "Carolina Elizabet Barrios", "c": "Docente", "m": 8}, {"n": "Maria de las Mercedes Medina", "c": "Docente", "m": 8}, {"n": "Lelia Inés Ramirez", "c": "Investigador/a", "m": 8}, {"n": "Luisana Marisol Ferri", "c": "Estudiante de grado", "m": 8}, {"n": "Adrián Ramón Sosa", "c": "Personal no docente", "m": 8}, {"n": "Mendiaz Joaquin Aitor", "c": "Personal no docente", "m": 8}, {"n": "Mirtha Itati Aguirre Gutiérrez", "c": "Graduado/a", "m": 8}, {"n": "Alejandro Horacio Aquino", "c": "Docente", "m": 9}, {"n": "Florencia Aymara Encinas Nuñez", "c": "Docente", "m": 9}, {"n": "María Antonia Acosta", "c": "Docente", "m": 9}, {"n": "Maria Natalia Mandri", "c": "Investigador/a", "m": 9}, {"n": "Marcelo Daniel Mansilla", "c": "Estudiante de grado", "m": 9}, {"n": "EDGARDO OMAR GAGLIARDONE", "c": "Personal no docente", "m": 9}, {"n": "Natalia Lorena Arduña Medina", "c": "Personal no docente", "m": 9}, {"n": "Moralez Hanuch Olga", "c": "Graduado/a", "m": 9}, {"n": "Griselda Patricia Arce", "c": "Docente", "m": 10}, {"n": "María Alejandra Gili", "c": "Docente", "m": 10}, {"n": "Victoria Fernanda Lopez", "c": "Docente", "m": 10}, {"n": "Mariel Beatriz Galiana", "c": "Investigador/a", "m": 10}, {"n": "Maria Belen Fernández Alfonzo", "c": "Estudiante de grado", "m": 10}, {"n": "elida cristina romero", "c": "Personal no docente", "m": 10}, {"n": "Orlando Javier Falcón", "c": "Personal no docente", "m": 10}, {"n": "Veronica Cruz", "c": "Graduado/a", "m": 10}];
+const REPARTO = {"Docente": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 7, 8, 8, 9, 9, 10, 10], "Investigador/a": [1, 1, 2, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10], "Estudiante de grado": [1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 8, 8, 9, 9, 10, 10], "Personal no docente": [1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10], "Graduado/a": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8, 9, 10]};
+const CLAUSTROS = ["Docente", "Investigador/a", "Estudiante de grado", "Personal no docente", "Graduado/a"];
+
+function normalize(s){
+  return s.normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+const INDEXED = DATA.map(p => ({...p, norm: normalize(p.n)}));
+
+const q = document.getElementById('q');
+const cl = document.getElementById('cl');
+const resultsEl = document.getElementById('results');
+
+CLAUSTROS.forEach(c => {
+  const o = document.createElement('option');
+  o.value = c; o.textContent = c;
+  cl.appendChild(o);
+});
+
+/* Hash estable: la misma persona escribiendo lo mismo siempre cae en la misma
+   mesa, aunque cierre la página y vuelva a escanear el QR. */
+function hash(s){
+  let h = 2166136261;
+  for(let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return Math.abs(h);
+}
+function asignarNueva(nombre, claustro){
+  const lista = REPARTO[claustro] || REPARTO[CLAUSTROS[0]];
+  return lista[hash(normalize(nombre) + '|' + claustro) % lista.length];
+}
+
+function buscar(raw){
+  const n = normalize(raw);
+  if(n.length < 2) return { estado:'corto' };
+  const tokens = n.split(' ').filter(Boolean);
+  const m = INDEXED.filter(p => tokens.every(t => p.norm.includes(t)));
+  if(m.length === 0) return { estado:'ninguno' };
+  if(m.length === 1) return { estado:'uno', persona: m[0] };
+  return { estado:'varios', personas: m.slice(0, 8) };
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function ticket(persona, nueva){
+  resultsEl.innerHTML = `
+    <p class="mesa-label">Mesa</p>
+    <div class="mesa-box">
+      <div class="mesa-number">${persona.m}</div>
+    </div>
+    <div class="persona">
+      <div class="nombre">${escapeHtml(persona.n.trim())}</div>
+      <div class="claustro">${escapeHtml(persona.c)}</div>
+    </div>
+    <p class="caption">Buscá el cartel con este número en la sala.</p>
+    ${nueva ? `<div class="aviso"><strong>No estabas en la lista de inscriptos.</strong>
+      Te sumamos a la mesa ${persona.m}. Pasá por la mesa de acreditación para que te anoten.</div>` : ''}
+    <button class="change-search" id="otro">Buscar otro nombre</button>
+  `;
+  document.getElementById('otro').addEventListener('click', () => {
+    q.value = ''; cl.value = ''; resultsEl.innerHTML = ''; q.focus();
+  });
+}
+
+function listaCoincidencias(personas){
+  resultsEl.innerHTML = `
+    <p class="hint" style="margin:0 0 12px;">Hay varias coincidencias, tocá tu nombre:</p>
+    <div class="matchlist">
+      ${personas.map((p,i) => `
+        <button class="match-item" data-i="${i}">
+          <div class="match-name">${escapeHtml(p.n.trim())}</div>
+          <div class="match-claustro">${escapeHtml(p.c)}</div>
+        </button>`).join('')}
+    </div>
+  `;
+  resultsEl.querySelectorAll('.match-item').forEach(b => {
+    b.addEventListener('click', () => ticket(personas[+b.dataset.i], false));
+  });
+}
+
+function nota(texto){
+  resultsEl.innerHTML = `<div class="nota">${texto}</div>`;
+}
+
+function resolver(){
+  const nombre = q.value.trim();
+  if(normalize(nombre).length < 2){
+    nota('<strong>Escribí tu apellido</strong> para poder buscarte.');
+    q.focus(); return;
+  }
+  const r = buscar(nombre);
+  if(r.estado === 'uno'){ ticket(r.persona, false); return; }
+  if(r.estado === 'varios'){ listaCoincidencias(r.personas); return; }
+
+  if(!cl.value){
+    nota('<strong>No te encontramos entre los inscriptos.</strong><br>'
+       + 'Revisá cómo está escrito el apellido, o elegí tu claustro y te asignamos una mesa.');
+    return;
+  }
+  ticket({ n: nombre, c: cl.value, m: asignarNueva(nombre, cl.value) }, true);
+}
+
+document.getElementById('goBtn').addEventListener('click', resolver);
+q.addEventListener('keydown', e => { if(e.key === 'Enter') resolver(); });
+cl.addEventListener('change', () => { if(q.value.trim()) resolver(); });
+</script>
+</body>
+</html>
