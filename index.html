@@ -1,535 +1,476 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Votación de proyectos — Taller 2 · PEDI FOUNNE</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inscripción · Segundo taller participativo · PEDI 2027–2032 · Facultad de Odontología UNNE</title>
+<meta name="description" content="Inscripción al segundo taller participativo para la construcción del Plan Estratégico de Desarrollo Institucional 2027–2032 de la Facultad de Odontología, UNNE.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0B3F71;
-    --violeta:#7654A0;
-    --teal:#4097AB;
-    --azul:#4A7BB3;
-    --magenta:#A8548C;
-    --papel:#F5F6FA;
-    --tinta:#1F2B3D;
-    --gris:#64708A;
-    --linea:#DFE3ED;
+    --navy-top:#1B3149;
+    --navy-mid:#0E1C2C;
+    --navy-bot:#04060B;
+    --navy-foot:#182B3F;
+    --blue:#4D70BC;
+    --teal:#48B7A4;
+    --purple:#624AA8;
+    --paper:#fff;
+    --ink:#16233A;
+    --muted:#5E6C82;
+    --line:#DCE3EC;
+    --field:#F5F7FA;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
+  body{overflow-x:hidden}
   body{
-    background:var(--papel);color:var(--tinta);
-    font-family:"Archivo","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
-    font-size:17px;line-height:1.45;-webkit-text-size-adjust:100%;
+    font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-variation-settings:'wdth' 100;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:660px;margin:0 auto;padding:0 16px 150px}
+  .wrap{max-width:640px;margin:0 auto;padding:0 24px}
 
-  /* ---------- Encabezado ---------- */
-  header{background:var(--navy);color:#fff;padding:24px 16px 0}
-  .head-in{max-width:660px;margin:0 auto}
-  header .kicker{
-    font-family:"Archivo Narrow","Archivo",sans-serif;
-    font-size:13px;letter-spacing:.12em;color:#9BB4D2;margin:0 0 8px;text-transform:uppercase;
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg,var(--navy-top) 0%,var(--navy-mid) 52%,var(--navy-bot) 94%);
+    color:#fff;
+    padding:56px 0 0;
   }
-  header h1{margin:0 0 10px;font-size:27px;line-height:1.12;font-weight:700;letter-spacing:-.015em}
-  .regla{width:86px;height:4px;background:var(--violeta);border-radius:2px;margin:0 0 14px}
-  header p{margin:0 0 22px;color:#C3D2E6;font-size:15px;max-width:36em}
-  .arco{display:block;width:100%;height:16px}
+  .hero::before{ /* textura diagonal del banner */
+    content:'';position:absolute;inset:0;
+    background:repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 1px,transparent 1px 6px);
+    -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 97%);
+    mask-image:linear-gradient(180deg,#000 55%,transparent 97%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:2;padding-bottom:26px}
+  .eyebrow{
+    margin:0 0 22px;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+    font-weight:600;color:#9FB4CF;
+  }
+  .eyebrow span{
+    display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:var(--teal);margin-right:9px;vertical-align:2px;
+  }
+  .lockup h1{
+    margin:0;line-height:.84;letter-spacing:-.035em;
+    font-weight:900;font-variation-settings:'wdth' 100,'wght' 900;
+  }
+  .lockup .l1{display:block;font-size:clamp(3.4rem,15vw,5.4rem)}
+  .lockup .l2{display:block;font-size:clamp(2.05rem,9vw,3.25rem);letter-spacing:-.025em;margin-top:.06em}
+  .lockup .l3{
+    margin:.7em 0 0;font-size:clamp(.78rem,3.4vw,1rem);font-weight:400;
+    letter-spacing:.14em;color:#D5E0EE;
+  }
+  .years{
+    display:inline-block;margin:26px 0 0;font-weight:900;
+    font-size:clamp(1.05rem,4.6vw,1.35rem);letter-spacing:.02em;
+  }
+  .years i{font-style:normal;color:var(--teal);padding:0 .28em}
+  .years b{
+    display:inline-block;margin-left:16px;vertical-align:3px;
+    font-size:.66rem;font-weight:800;letter-spacing:.2em;
+    padding:6px 11px 5px;border-radius:999px;
+    border:1.5px solid rgba(255,255,255,.34);color:#DDE7F3;
+  }
 
-  /* ---------- Datos de la mesa ---------- */
-  .datos{
-    background:#fff;border:1px solid var(--linea);border-radius:8px;
-    padding:14px 16px;margin:20px 0 18px;display:flex;gap:14px;flex-wrap:wrap;
-  }
-  .dato{flex:1 1 150px;min-width:150px}
-  .dato label{display:block;font-weight:600;font-size:15.5px;color:var(--navy)}
-  .dato small{display:block;font-weight:400;color:var(--gris);font-size:13.5px;margin:1px 0 7px}
-  .dato input{
-    width:100%;font-family:"Archivo",sans-serif;font-size:27px;font-weight:700;text-align:center;
-    color:var(--navy);padding:6px;border:2px solid var(--linea);border-radius:7px;background:#fff;
-  }
-  .dato input:focus{outline:none;border-color:var(--violeta);box-shadow:0 0 0 3px rgba(118,84,160,.20)}
-
-  .consigna{
-    background:#fff;border:1px solid var(--linea);border-radius:8px;padding:15px 16px;margin:0 0 20px;
-  }
-  .consigna p{margin:0;font-size:16.5px;font-weight:600;color:var(--navy);line-height:1.35}
-  .consigna small{display:block;margin-top:8px;color:var(--gris);font-size:14px;font-weight:400}
-
-  /* ---------- Líneas estratégicas ---------- */
-  .linea-bloque{margin:0 0 22px}
-  .linea-tit{
-    display:flex;align-items:center;gap:9px;margin:0 0 9px;padding:0 2px;
-  }
-  .linea-tit .bolita{width:11px;height:11px;border-radius:50%;flex:0 0 auto}
-  .linea-tit h2{
-    margin:0;font-family:"Archivo Narrow",sans-serif;font-size:14px;font-weight:700;
-    letter-spacing:.09em;text-transform:uppercase;color:var(--gris);
+  /* ---------- ARCO (elemento firma) ---------- */
+  .curve{position:relative;height:118px;margin-top:-1px;line-height:0;background:transparent}
+  .curve svg{display:block;width:100%;height:100%}
+  .ring{
+    position:absolute;left:89%;top:22%;width:44px;height:44px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;background:#fff;
+    box-shadow:0 0 0 8px var(--purple);
+    z-index:3;
   }
 
-  /* ---------- Proyecto ---------- */
-  .proy{
-    background:#fff;border:1px solid var(--linea);border-left-width:4px;border-radius:7px;
-    padding:11px 12px;margin:0 0 8px;display:flex;align-items:center;gap:12px;
+  /* ---------- CONTENIDO ---------- */
+  main.wrap{padding:14px 24px 68px}
+  .kicker{
+    margin:0 0 10px;font-size:.7rem;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--purple);
   }
-  .proy.votado{background:#FCFDFF;border-color:#B9C9E2;border-left-width:4px}
-  .proy.excede{background:#FDF4F4;border-color:#E0A9A6}
-  .proy.excede .nom{color:#92333A}
-  .proy .txt{flex:1 1 auto;min-width:0}
-  .proy .cod{
-    font-family:"Archivo Narrow",sans-serif;font-size:12.5px;font-weight:700;
-    letter-spacing:.05em;color:var(--gris);display:block;margin-bottom:1px;
+  h2{
+    margin:0;font-size:clamp(1.85rem,7.4vw,2.6rem);line-height:1.03;
+    letter-spacing:-.03em;font-weight:900;
   }
-  .proy .nom{font-size:15.5px;font-weight:600;color:var(--tinta);line-height:1.28;display:block}
-  .proy.votado .nom{color:var(--navy)}
+  .lead{margin:16px 0 0;color:var(--muted);font-size:1.02rem;line-height:1.55;max-width:52ch}
+  .lead strong{color:var(--ink);font-weight:800}
 
-  .stepper{flex:0 0 auto;display:flex;align-items:center;gap:7px}
-  .stepper button{
-    width:40px;height:40px;flex:0 0 auto;border-radius:7px;border:1px solid var(--linea);
-    background:#F3F5F9;color:var(--navy);font-family:"Archivo",sans-serif;font-size:24px;
-    font-weight:700;line-height:1;cursor:pointer;padding:0;
-    display:flex;align-items:center;justify-content:center;
+  .meta{
+    display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0;padding:0;list-style:none;
   }
-  .stepper button:active{background:var(--navy);color:#fff;border-color:var(--navy)}
-  .stepper button:disabled{opacity:.35;cursor:not-allowed}
-  .stepper .val{
-    width:40px;text-align:center;font-size:22px;font-weight:700;color:var(--navy);
-    font-variant-numeric:tabular-nums;
+  .meta li{
+    display:flex;align-items:center;gap:8px;
+    background:var(--field);border:1px solid var(--line);border-radius:999px;
+    padding:8px 15px;font-size:.83rem;font-weight:500;color:#3B4A61;
   }
-  .stepper .val.cero{color:#C3C9D6;font-weight:400}
-  .stepper .val.mal{color:#A4433F}
+  .meta svg{flex:none;color:var(--purple)}
 
-  /* ---------- Pie fijo ---------- */
-  .pie{
-    position:fixed;left:0;right:0;bottom:0;background:rgba(245,246,250,.97);
-    border-top:1px solid var(--linea);padding:11px 16px calc(11px + env(safe-area-inset-bottom));
-    backdrop-filter:blur(6px);z-index:10;
+  form{margin-top:38px}
+  form button{margin-top:6px}
+  .field{margin-bottom:20px}
+  label{display:block;font-size:.83rem;font-weight:700;letter-spacing:.01em;margin-bottom:7px}
+  .hint{display:block;font-weight:400;color:var(--muted);font-size:.78rem;margin-top:3px}
+  input,select{
+    width:100%;font:inherit;font-size:1rem;color:var(--ink);
+    background:var(--field);border:1.5px solid var(--line);border-radius:11px;
+    padding:14px 15px;transition:border-color .15s,box-shadow .15s,background .15s;
+    appearance:none;
   }
-  .pie-in{max-width:660px;margin:0 auto;display:flex;align-items:center;gap:14px}
-  .estado{flex:1 1 auto;font-size:14px;color:var(--gris);line-height:1.32}
-  .estado b{color:var(--navy)}
-  .estado .alerta{color:#A4433F;font-weight:600}
-  .estado .ok{color:var(--teal);font-weight:600}
-  button#enviar{
-    flex:0 0 auto;font-family:"Archivo",sans-serif;font-size:17px;font-weight:600;
-    background:var(--navy);color:#fff;border:none;border-radius:7px;padding:14px 26px;cursor:pointer;
+  select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%235E6C82' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;
   }
-  button#enviar:disabled{background:#AEB7C9;cursor:not-allowed}
-  button#enviar:not(:disabled):active{background:var(--violeta)}
+  input:focus,select:focus{
+    outline:none;background:#fff;border-color:var(--purple);
+    box-shadow:0 0 0 4px rgba(98,74,168,.13);
+  }
+  input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+  .field[hidden]{display:none}
+  .field.error input,.field.error select{border-color:#C4384A;background:#FEF5F6}
+  .field.error input:focus,.field.error select:focus{border-color:#C4384A;box-shadow:0 0 0 4px rgba(196,56,74,.14)}
+  .msg{display:none;margin-top:7px;font-size:.79rem;font-weight:600;color:#C4384A}
+  .field.error .msg{display:block}
 
-  /* ---------- Confirmación ---------- */
-  .listo{display:none;text-align:center;padding:56px 10px 40px}
-  .listo.on{display:block}
-  .tilde{
-    width:76px;height:76px;border-radius:50%;background:var(--teal);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 20px;
+  button{
+    width:100%;font:inherit;font-weight:800;font-size:1rem;letter-spacing:.01em;
+    color:#fff;border:0;border-radius:11px;padding:17px 20px;cursor:pointer;
+    background:linear-gradient(90deg,var(--blue) 0%,var(--teal) 50%,var(--purple) 100%);
+    box-shadow:0 6px 18px -8px rgba(98,74,168,.55);
+    transition:filter .2s ease,transform .12s ease,box-shadow .2s ease;
   }
-  .listo h2{margin:0 0 8px;font-size:25px;font-weight:700;color:var(--navy)}
-  .listo p{margin:0 0 20px;color:var(--gris);max-width:30em;margin-inline:auto}
-  .tilde.esperando{background:#C3C9D6}
-  .tilde.falla{background:#A4433F}
-  .listo.falla h2{color:#92333A}
-  .listo .reintentar{
-    display:none;margin:0 auto 22px;font-family:"Archivo",sans-serif;font-size:16px;
-    font-weight:600;background:#92333A;color:#fff;border:none;border-radius:7px;
-    padding:12px 24px;cursor:pointer;
+  button:hover{filter:saturate(1.15) brightness(1.06);box-shadow:0 10px 24px -8px rgba(98,74,168,.7)}
+  button:active{transform:translateY(1px)}
+  button[disabled]{filter:grayscale(.45) opacity(.65);cursor:progress}
+  .alert{
+    display:none;margin:0 0 22px;padding:14px 16px;border-radius:11px;
+    background:#FEF5F6;border:1.5px solid #F0C7CE;color:#8E2333;
+    font-size:.87rem;line-height:1.5;
   }
-  .listo.falla .reintentar{display:block}
-  .resumen{
-    background:#fff;border:1px solid var(--linea);border-radius:8px;
-    padding:14px 16px;margin:0 auto 24px;max-width:460px;text-align:left;
+  .alert.show{display:block}
+
+  /* ---------- CONFIRMACIÓN ---------- */
+  .done{display:none}
+  .done.show{display:block;animation:rise .45s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .check{
+    width:62px;height:62px;border-radius:50%;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--teal),var(--purple));margin-bottom:24px;
   }
-  .resumen div{
-    display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:15px;
-    border-bottom:1px solid #EDF0F5;
+  .done h2{font-size:clamp(1.6rem,6.4vw,2.15rem)}
+  .taller{
+    margin:26px 0 0;padding:22px 24px;border-radius:14px;color:#fff;
+    background:linear-gradient(150deg,var(--navy-top),var(--navy-mid) 70%,var(--navy-bot));
+    position:relative;overflow:hidden;
   }
-  .resumen div:last-child{border-bottom:none}
-  .resumen .n{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
-  .listo button{
-    font-family:"Archivo",sans-serif;font-size:16px;background:#fff;color:var(--navy);
-    border:1px solid var(--navy);border-radius:7px;padding:11px 22px;cursor:pointer;
+  .taller::after{content:'';position:absolute;inset:0;
+    background:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 6px);pointer-events:none}
+  .taller p{margin:0;position:relative;z-index:2}
+  .tdia{font-weight:900;font-size:clamp(1.15rem,5vw,1.5rem);letter-spacing:-.02em}
+  .thora{margin-top:2px!important;font-weight:700;font-size:1.02rem;color:var(--teal)}
+  .tlugar{margin-top:12px!important;font-size:.9rem;line-height:1.5;color:#C9D6E6}
+  .card{
+    margin-top:22px;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;
   }
-  .aviso{
-    display:none;margin:12px 0 0;padding:11px 13px;border-radius:7px;background:#FBF1F1;
-    border:1px solid #E7C4C4;color:#92333A;font-size:15px;
+  .card .bar{height:5px;background:linear-gradient(90deg,var(--blue),var(--teal) 50%,var(--purple))}
+  .card dl{margin:0;padding:6px 20px 20px}
+  .card dt{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:16px;font-weight:700}
+  .card dd{margin:4px 0 0;font-size:1.02rem;font-weight:600}
+
+  /* ---------- PIE ---------- */
+  footer{background:var(--navy-foot);color:#fff;text-align:center;position:relative;padding:40px 24px 34px}
+  footer::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;
+    background:linear-gradient(90deg,var(--blue) 0%,var(--teal) 46%,var(--purple) 100%)}
+  footer::after{content:'';position:absolute;inset:5px 0 0;
+    background:repeating-linear-gradient(115deg,rgba(255,255,255,.04) 0 1px,transparent 1px 6px);pointer-events:none}
+  footer img{width:132px;height:auto;display:block;margin:0 auto 18px;position:relative;z-index:2}
+  .fname{
+    margin:0;font-weight:900;font-size:clamp(1.02rem,4.6vw,1.35rem);letter-spacing:.005em;
+    font-stretch:80%;font-variation-settings:'wdth' 80,'wght' 900;position:relative;z-index:2;
   }
-  .aviso.on{display:block}
-  .marca{
-    margin:28px 0 0;padding-top:16px;border-top:1px solid var(--linea);
-    font-family:"Archivo Narrow",sans-serif;font-size:12.5px;color:#93A0B8;
-    letter-spacing:.04em;text-align:center;
+  .fname i{font-style:normal;color:var(--teal);padding:0 .3em}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms!important;transition-duration:.01ms!important}
   }
-  @media (prefers-reduced-motion:no-preference){
-    .listo.on .tilde{animation:pop .32s ease-out}
-    @keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+  @media (min-width:560px){
+    .hero{padding-top:70px}
+    .curve{height:150px}
+    .ring{width:58px;height:58px;box-shadow:0 0 0 11px var(--purple)}
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="head-in">
-    <p class="kicker">Taller participativo 2 · PEDI 2027–2032</p>
-    <h1>Votación de proyectos</h1>
-    <div class="regla"></div>
-    <p>Carguen cuántos votos recibió cada proyecto en su mesa. Una sola persona carga por todos.</p>
+<header class="hero">
+  <div class="wrap hero-inner">
+    <p class="eyebrow" id="eyebrow"><span></span>Inscripción abierta</p>
+    <div class="lockup">
+      <h1><span class="l1">Plan</span><span class="l2">Estratégico</span></h1>
+      <p class="l3">de Desarrollo Institucional</p>
+    </div>
+    <p class="years">2027<i>▪</i>2032<b>PEDI</b></p>
   </div>
-  <svg class="arco" viewBox="0 0 660 16" preserveAspectRatio="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="gpedi" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%"   stop-color="#4097AB"/>
-        <stop offset="50%"  stop-color="#4A7BB3"/>
-        <stop offset="100%" stop-color="#7654A0"/>
-      </linearGradient>
-    </defs>
-    <path d="M0 16 Q330 -10 660 16" fill="none" stroke="url(#gpedi)" stroke-width="4"/>
-  </svg>
 </header>
 
-<div class="wrap">
-  <form id="form" novalidate>
-    <div class="datos">
-      <div class="dato">
-        <label for="mesa">Número de mesa</label>
-        <small>Está en el cartel de la mesa</small>
-        <input id="mesa" type="number" inputmode="numeric" min="1" max="99" placeholder="—">
-      </div>
-      <div class="dato">
-        <label for="integrantes">Integrantes</label>
-        <small>Cuántos votaron en la mesa</small>
-        <input id="integrantes" type="number" inputmode="numeric" min="1" max="30" placeholder="—">
-      </div>
-    </div>
-
-    <div class="consigna">
-      <p>Cada integrante elige los 7 proyectos más relevantes.</p>
-      <small>Después cuenten los votos de cada proyecto y cárguenlos acá. Los que no recibieron votos quedan en cero, y ninguno puede superar la cantidad de integrantes.</small>
-    </div>
-
-    <div id="lineas"></div>
-    <div class="aviso" id="aviso"></div>
-  </form>
-
-  <div class="listo" id="listo">
-    <div class="tilde esperando" id="tilde">…</div>
-    <h2 id="listoTit">Enviando…</h2>
-    <p id="listoTxt">Esperá la confirmación antes de cerrar.</p>
-    <button type="button" class="reintentar" id="reintentar">Reintentar envío</button>
-    <div class="resumen" id="resumen"></div>
-    <button type="button" id="corregir">Corregir y volver a enviar</button>
-  </div>
-
-  <p class="marca">Plan Estratégico de Desarrollo Institucional<br>Facultad de Odontología · UNNE</p>
+<div class="curve">
+    <svg viewBox="0 0 1000 118" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="arc" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#4D70BC"/>
+          <stop offset="42%"  stop-color="#48B7A4"/>
+          <stop offset="100%" stop-color="#624AA8"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,-2 H1000 V4 C 830,40 640,96 400,105 C 250,111 108,80 0,44 Z" fill="#04060B"/>
+      <path d="M-30,56 C 100,96 254,124 402,118 C 610,110 790,66 890,26"
+            fill="none" stroke="url(#arc)" stroke-width="9"
+            stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <div class="ring"></div>
 </div>
 
-<div class="pie" id="pie">
-  <div class="pie-in">
-    <div class="estado" id="estado">Completá el número de mesa para empezar</div>
-    <button type="button" id="enviar" disabled>Enviar</button>
-  </div>
-</div>
+<main class="wrap">
+
+  <!-- ===== FORMULARIO ===== -->
+  <section id="paso-form">
+    <p class="kicker">Facultad de Odontología · UNNE</p>
+    <h2>Segundo taller participativo</h2>
+    <p class="lead">Un espacio de trabajo colectivo para construir el diagnóstico y las líneas estratégicas del <strong>PEDI</strong>, el Plan Estratégico de Desarrollo Institucional 2027–2032 de la Facultad de Odontología. ¡Te esperamos!</p>
+
+    <ul class="meta">
+      <li>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>
+        Jueves 19 de noviembre
+      </li>
+      <li>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.4V8l2.4 1.6" stroke-linecap="round"/></svg>
+        8.30 a 12.30 h
+      </li>
+      <li>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 14.5s5-4.3 5-8a5 5 0 1 0-10 0c0 3.7 5 8 5 8Z"/><circle cx="8" cy="6.5" r="1.9"/></svg>
+        Salón E · Módulo Ingeniería (FACENA)
+      </li>
+    </ul>
+
+    <div class="alert" id="alerta"></div>
+
+    <form id="form" novalidate>
+      <div class="field" id="f-nombre">
+        <label for="nombre">Nombre y apellido</label>
+        <input id="nombre" name="nombre" type="text" autocomplete="name" placeholder="Como figura en tu documento">
+        <p class="msg">Escribí tu nombre y apellido.</p>
+      </div>
+
+      <div class="field" id="f-claustro">
+        <label for="claustro">Claustro
+          <span class="hint">Si pertenecés a más de uno, elegí el que mejor te representa en el taller.</span>
+        </label>
+        <select id="claustro" name="claustro">
+          <option value="" selected disabled>Elegí una opción</option>
+          <option>Estudiante de grado</option>
+          <option>Estudiante de posgrado</option>
+          <option>Docente</option>
+          <option>Investigador/a</option>
+          <option>Graduado/a</option>
+          <option>Personal no docente</option>
+          <option>Otro</option>
+        </select>
+        <p class="msg">Elegí tu claustro.</p>
+      </div>
+
+      <div class="field" id="f-otro" hidden>
+        <label for="claustro-otro">¿Cuál?</label>
+        <input id="claustro-otro" name="claustro_otro" type="text" placeholder="Contanos desde dónde participás">
+        <p class="msg">Escribí desde dónde participás.</p>
+      </div>
+
+      <div class="field" id="f-telefono">
+        <label for="telefono">Teléfono
+          <span class="hint">Con característica, sin 0 ni 15. Ej.: 3794 123456</span>
+        </label>
+        <input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="3794 123456">
+        <p class="msg">Ingresá un teléfono de al menos 8 dígitos.</p>
+      </div>
+
+      <button type="submit" id="enviar">Confirmar mi inscripción</button>
+    </form>
+  </section>
+
+  <!-- ===== CONFIRMACIÓN ===== -->
+  <section class="done" id="paso-ok" tabindex="-1">
+    <div class="check">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg>
+    </div>
+    <p class="kicker">Inscripción confirmada</p>
+    <h2 id="saludo">Listo. Te esperamos.</h2>
+    <p class="lead">Anotamos tu inscripción. Si surge algún cambio, te avisamos al teléfono que dejaste.</p>
+    <div class="taller">
+      <p class="tdia">Jueves 19 de noviembre</p>
+      <p class="thora">8.30 a 12.30 h</p>
+      <p class="tlugar">Salón E del Módulo Ingeniería (FACENA)<br>Campus Deodoro Roca — Av. Libertad 5470, Corrientes</p>
+    </div>
+    <div class="card">
+      <div class="bar"></div>
+      <dl>
+        <dt>Nombre y apellido</dt><dd id="ok-nombre"></dd>
+        <dt>Claustro</dt><dd id="ok-claustro"></dd>
+        <dt>Teléfono</dt><dd id="ok-telefono"></dd>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <img src="data:image/png;base64,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" alt="UNNE · Facultad de Odontología">
+  <p class="fname">Facultad de Odontología<i>•</i>UNNE</p>
+</footer>
 
 <script>
-/* ====== CONFIGURACIÓN ====== */
-const API = 'https://script.google.com/macros/s/AKfycbzcXFqBmba2IqPjy2mEJ_clRw_giKknf5q3B6Gw2-53tJyC25LFWInjSsbMu-xeQ2ExVA/exec';   // URL de implementación del Apps Script
-const POR_PERSONA = 7;                   // cuántos proyectos elige cada integrante
-/* =========================== */
+(function(){
+  'use strict';
 
-const LINEAS = [
-  {id:1, nombre:'Línea 1 · Formación Académica de Excelencia', color:'#4097AB'},
-  {id:2, nombre:'Línea 2 · Gestión, Infraestructura y Equipamiento', color:'#4A7BB3'},
-  {id:3, nombre:'Línea 3 · Producción Científica, Extensión y Proyección', color:'#7654A0'},
-  {id:4, nombre:'Línea 4 · Identidad, Bienestar y Comunicación', color:'#A8548C'}
-];
+  /* ============================================================
+     CONFIGURACIÓN — pegar acá la URL del Web App de Apps Script
+     (Implementar ▸ Nueva implementación ▸ Aplicación web ▸ /exec)
+     ============================================================ */
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkrAKXJaw-OjI2BdKOjAS-KIOoiCxX7la5XckQrZ9XvGKZg57rhhopvPknZzGT2mms/exec';
 
-/* Los 20 proyectos, con los títulos de la grilla impresa. El número y el código
-   son los mismos de la matriz consolidada. 'corto' es el rótulo de la pantalla. */
-const PROYECTOS = [
-  {n:1,  cod:'1.2.a',       linea:1, nombre:'Revisión y mejoramiento del Plan de Estudio', corto:'Plan de Estudio'},
-  {n:2,  cod:'1.2.c',       linea:1, nombre:'Fortalecimiento de la Formación de Posgrado', corto:'Formación de Posgrado'},
-  {n:3,  cod:'1.3.f',       linea:1, nombre:'Fortalecimiento de la Práctica Clínica en el Grado', corto:'Práctica Clínica en el Grado'},
-  {n:4,  cod:'1.3.a',       linea:1, nombre:'Flexibilización en modalidades de cursado', corto:'Flexibilización del cursado'},
-  {n:5,  cod:'1.3.e',       linea:1, nombre:'Integración de nuevas tecnologías y de la IA en la Odontología', corto:'Nuevas tecnologías e IA'},
-  {n:6,  cod:'1.1.a',       linea:1, nombre:'Formación Docente Continua y Perfeccionamiento Pedagógico', corto:'Formación Docente Continua'},
-  {n:7,  cod:'1.2.d',       linea:1, nombre:'Acompañamiento a Estudiantes y Graduados', corto:'Acompañamiento a estudiantes'},
-  {n:8,  cod:'2.1.b',       linea:2, nombre:'Mejoramiento de Infraestructura y Servicios Edilicios', corto:'Infraestructura y Servicios'},
-  {n:9,  cod:'2.1.c',       linea:2, nombre:'Sistema de Gestión y Modernización de Equipamiento de Uso Clínico y Preclínico', corto:'Equipamiento clínico'},
-  {n:10, cod:'2.3.b',       linea:2, nombre:'Ordenamiento de las carreras Docente y Nodocente', corto:'Carreras Docente y Nodocente'},
-  {n:11, cod:'2.2.a',       linea:2, nombre:'Fortalecimiento de la Gobernanza Democrática y el Cogobierno', corto:'Gobernanza y Cogobierno'},
-  {n:12, cod:'3.1.a',       linea:3, nombre:'Adecuación de Líneas de Investigación Prioritarias en Salud Bucal', corto:'Líneas de Investigación'},
-  {n:13, cod:'3.4.a',       linea:3, nombre:'Consolidación del Hospital Universitario Odontológico como Eje Integrador', corto:'Hospital Universitario'},
-  {n:14, cod:'3.1.c',       linea:3, nombre:'Promoción y Gestión de Financiamiento para la Investigación', corto:'Financiamiento para Investigación'},
-  {n:15, cod:'3.3.a',       linea:3, nombre:'Curricularización de la Extensión Universitaria', corto:'Extensión Universitaria'},
-  {n:16, cod:'3.3.b/3.3.c', linea:3, nombre:'Red de Alianzas Estratégicas y Convenios Interinstitucionales', corto:'Alianzas y Convenios'},
-  {n:17, cod:'4.1.a',       linea:4, nombre:'Difusión y Gestión de Becas', corto:'Becas'},
-  {n:18, cod:'4.1.d',       linea:4, nombre:'Generación de Actividades Culturales y Deportivas', corto:'Actividades Culturales y Deportivas'},
-  {n:19, cod:'4.2.b',       linea:4, nombre:'Fortalecimiento del Área de Comunicación Institucional', corto:'Comunicación Institucional'},
-  {n:20, cod:'4.2.a/4.2.c', linea:4, nombre:'Creando Valor Público: Promoción de la Salud Bucal', corto:'Valor Público: Salud Bucal'}
-];
+  var form   = document.getElementById('form');
+  var alerta = document.getElementById('alerta');
+  var boton  = document.getElementById('enviar');
 
-const votos = {};
-PROYECTOS.forEach(p => votos[p.cod] = 0);
-
-/* ---------- armado de la lista ---------- */
-const cont = document.getElementById('lineas');
-LINEAS.forEach(L => {
-  const bloque = document.createElement('section');
-  bloque.className = 'linea-bloque';
-  bloque.innerHTML =
-    '<div class="linea-tit"><span class="bolita" style="background:' + L.color + '"></span>' +
-    '<h2>' + L.nombre + '</h2></div>';
-
-  PROYECTOS.filter(p => p.linea === L.id).forEach(p => {
-    const fila = document.createElement('div');
-    fila.className = 'proy';
-    fila.style.borderLeftColor = L.color;
-    fila.dataset.cod = p.cod;
-    fila.innerHTML =
-      '<div class="txt">' +
-        '<span class="cod">' + p.n + ' · ' + p.cod + '</span>' +
-        '<span class="nom">' + p.nombre + '</span>' +
-      '</div>' +
-      '<div class="stepper">' +
-        '<button type="button" data-op="menos" aria-label="Quitar un voto a ' + p.cod + '">−</button>' +
-        '<span class="val cero" data-val>0</span>' +
-        '<button type="button" data-op="mas" aria-label="Sumar un voto a ' + p.cod + '">+</button>' +
-      '</div>';
-    bloque.appendChild(fila);
-  });
-  cont.appendChild(bloque);
-});
-
-const mesa   = document.getElementById('mesa');
-const integr = document.getElementById('integrantes');
-const estado = document.getElementById('estado');
-const btn    = document.getElementById('enviar');
-const aviso  = document.getElementById('aviso');
-const form   = document.getElementById('form');
-const listo  = document.getElementById('listo');
-const pie    = document.getElementById('pie');
-const CLAVE  = 'pedi_proyectos_mesa';
-
-/* ---------- borrador local ---------- */
-function guardar(){
-  try{
-    localStorage.setItem(CLAVE, JSON.stringify(
-      {mesa: mesa.value, integrantes: integr.value, votos: votos}));
-  }catch(e){}
-}
-function restaurar(){
-  try{
-    const d = JSON.parse(localStorage.getItem(CLAVE) || '{}');
-    if(d.mesa) mesa.value = d.mesa;
-    if(d.integrantes) integr.value = d.integrantes;
-    if(d.votos) Object.keys(votos).forEach(k => {
-      if(typeof d.votos[k] === 'number') votos[k] = d.votos[k];
-    });
-  }catch(e){}
-}
-restaurar();
-
-function total(){
-  return Object.values(votos).reduce((a,b) => a + b, 0);
-}
-function cantidadIntegrantes(){
-  const i = parseInt(integr.value, 10);
-  return Number.isInteger(i) && i > 0 ? i : null;
-}
-function esperado(){
-  const i = cantidadIntegrantes();
-  return i ? i * POR_PERSONA : null;
-}
-/* Cada integrante vota una sola vez por proyecto: ninguno puede superar
-   la cantidad de integrantes de la mesa. */
-function tope(){
-  return cantidadIntegrantes() || 99;
-}
-
-function refrescar(){
-  const T = tope();
-  let excedidos = 0;
-
-  document.querySelectorAll('.proy').forEach(fila => {
-    const v = votos[fila.dataset.cod];
-    const mal = v > T;
-    if(mal) excedidos++;
-    const span = fila.querySelector('[data-val]');
-    span.textContent = v;
-    span.classList.toggle('cero', v === 0);
-    span.classList.toggle('mal', mal);
-    fila.classList.toggle('votado', v > 0 && !mal);
-    fila.classList.toggle('excede', mal);
-    fila.querySelector('[data-op="menos"]').disabled = (v === 0);
-    fila.querySelector('[data-op="mas"]').disabled = (v >= T);
-  });
-
-  const t = total();
-  const e = esperado();
-  const m = parseInt(mesa.value, 10);
-  const mesaOk = Number.isInteger(m) && m > 0;
-
-  if(!mesaOk){
-    estado.innerHTML = 'Completá el número de mesa para empezar';
-  } else if(excedidos > 0){
-    estado.innerHTML = '<b>Mesa ' + m + '</b> · <span class="alerta">' + excedidos +
-      (excedidos === 1 ? ' proyecto supera' : ' proyectos superan') +
-      ' los ' + T + ' integrantes</span>' +
-      '<br><span style="font-size:13px">Corregilos para poder enviar</span>';
-  } else if(e === null){
-    estado.innerHTML = '<b>Mesa ' + m + '</b> · ' + t + ' votos cargados' +
-      '<br><span style="font-size:13px">Cargá los integrantes para controlar el total</span>';
-  } else if(t === e){
-    estado.innerHTML = '<b>Mesa ' + m + '</b> · ' + t + ' de ' + e + ' votos ' +
-      '<span class="ok">· cuadra</span>';
-  } else {
-    const dif = e - t;
-    estado.innerHTML = '<b>Mesa ' + m + '</b> · ' + t + ' de ' + e + ' votos' +
-      '<br><span class="alerta">' + (dif > 0 ? 'faltan ' + dif : 'sobran ' + (-dif)) + '</span>';
+  function setError(id, on){
+    document.getElementById(id).classList.toggle('error', on);
   }
-  btn.disabled = !(mesaOk && t > 0 && excedidos === 0);
-  guardar();
-}
+  function digits(s){ return (s.match(/\d/g) || []).length; }
 
-/* ---------- interacción ---------- */
-cont.addEventListener('click', e => {
-  const b = e.target.closest('button[data-op]');
-  if(!b) return;
-  const cod = b.closest('.proy').dataset.cod;
-  if(b.dataset.op === 'mas'){
-    if(votos[cod] < tope()) votos[cod]++;
-  } else if(votos[cod] > 0){
-    votos[cod]--;
-  }
-  refrescar();
-});
-
-mesa.addEventListener('input', refrescar);
-integr.addEventListener('input', refrescar);
-form.addEventListener('keydown', e => { if(e.key === 'Enter') e.preventDefault(); });
-refrescar();
-
-/* ---------- envío ---------- */
-let forzar = false;
-
-btn.addEventListener('click', async () => {
-  const m = parseInt(mesa.value, 10);
-  if(!Number.isInteger(m) || m < 1){
-    aviso.textContent = 'Falta el número de mesa.';
-    aviso.classList.add('on'); mesa.focus(); return;
-  }
-  const t = total();
-  if(t === 0){
-    aviso.textContent = 'Todavía no cargaste ningún voto.';
-    aviso.classList.add('on'); return;
+  function validar(d){
+    var ok = true;
+    var vNombre = d.nombre.trim().length >= 3 && d.nombre.trim().indexOf(' ') > 0;
+    var vClaustro = !!d.claustro;
+    var vOtro = d.claustro !== 'Otro' || d.claustro_otro.trim().length >= 3;
+    var vTel = digits(d.telefono) >= 8;
+    setError('f-nombre', !vNombre);
+    setError('f-claustro', !vClaustro);
+    setError('f-otro', !vOtro);
+    setError('f-telefono', !vTel);
+    ok = vNombre && vClaustro && vOtro && vTel;
+    if (!ok){
+      var primero = document.querySelector('.field.error input, .field.error select');
+      if (primero) primero.focus();
+    }
+    return ok;
   }
 
-  // El descuadre avisa pero no bloquea: la mesa decide si envía igual.
-  const e = esperado();
-  if(e !== null && t !== e && !forzar){
-    const dif = e - t;
-    aviso.innerHTML = 'Cargaste <b>' + t + '</b> votos y con ' + integr.value +
-      ' integrantes deberían ser <b>' + e + '</b> (' +
-      (dif > 0 ? 'faltan ' + dif : 'sobran ' + (-dif)) + '). ' +
-      'Revisá el conteo, o tocá Enviar otra vez para mandarlo así.';
-    aviso.classList.add('on');
-    forzar = true;
-    btn.textContent = 'Enviar igual';
-    return;
+  function mostrarError(txt){
+    alerta.textContent = txt;
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
   }
-  // Sin URL de Apps Script no hay nada que hacer: avisarlo acá y no fingir un envío.
-  if(API.indexOf('PEGAR_ACA') !== -1){
-    aviso.innerHTML = 'El formulario todavía no está conectado a la planilla. ' +
-      'Avisale al equipo del taller antes de seguir.';
-    aviso.classList.add('on');
-    return;
-  }
-  aviso.classList.remove('on');
 
-  btn.disabled = true;
-  btn.textContent = 'Enviando…';
+  async function enviar(d){
+    var cuerpo = new URLSearchParams(d);
+    cuerpo.append('fecha_envio', new Date().toISOString());
 
-  const elegidos = PROYECTOS.filter(p => votos[p.cod] > 0)
-    .sort((a,b) => votos[b.cod] - votos[a.cod] || a.n - b.n);
-  document.getElementById('resumen').innerHTML = elegidos.map(p =>
-    '<div><span>' + p.cod + ' · ' + p.corto + '</span><span class="n">' + votos[p.cod] + '</span></div>'
-  ).join('');
-
-  form.style.display = 'none';
-  pie.style.display  = 'none';
-  listo.classList.add('on');
-  window.scrollTo(0,0);
-  enviar(m);
-});
-
-/* Envía y después confirma contra la planilla. Con mode:'no-cors' la respuesta
-   del POST es opaca, así que la única forma de saber si quedó guardado es
-   volver a preguntar. Mientras no haya confirmación, no se muestra el tilde. */
-async function enviar(m){
-  const tilde = document.getElementById('tilde');
-  const tit   = document.getElementById('listoTit');
-  const txt   = document.getElementById('listoTxt');
-
-  listo.classList.remove('falla');
-  tilde.className = 'tilde esperando';
-  tilde.textContent = '…';
-  tit.textContent = 'Enviando…';
-  txt.textContent = 'Esperá la confirmación antes de cerrar.';
-
-  const datos = {mesa: m, integrantes: parseInt(integr.value, 10) || 0,
-                 votos: votos, ts: Date.now()};
-  try{
-    await fetch(API, {
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify(datos)
-    });
-  }catch(err){ /* sigue igual: la verificación de abajo es la que decide */ }
-
-  tit.textContent = 'Verificando…';
-  let ok = false;
-  for(let i = 0; i < 5 && !ok; i++){
-    await new Promise(r => setTimeout(r, 700 + i * 400));
+    var res;
     try{
-      const r = await fetch(API + '?accion=verificar&mesa=' + m + '&t=' + Date.now());
-      const j = await r.json();
-      if(j && j.ok && j.registrada) ok = true;
-    }catch(e){ /* reintenta */ }
+      res = await fetch(SCRIPT_URL, {method:'POST', body:cuerpo});
+    }catch(e){
+      // El navegador no nos deja leer la respuesta: mandamos igual, a ciegas.
+      try{
+        await fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', body:cuerpo});
+        return;
+      }catch(e2){
+        throw new Error('No pudimos conectarnos. Revisá tu conexión y volvé a intentar.');
+      }
+    }
+
+    var txt = '';
+    try{ txt = await res.text(); }catch(e){ return; }
+
+    var json = null;
+    try{ json = JSON.parse(txt); }catch(e){}
+
+    if (json && json.ok === true) return;
+    if (json && json.ok === false){
+      throw new Error(json.error || 'La planilla rechazó la inscripción.');
+    }
+    // No vino JSON: suele ser la pantalla de login de Google, es decir
+    // que la implementación no está publicada para cualquier persona.
+    throw new Error('La planilla no confirmó la inscripción. Avisale a la organización.');
   }
 
-  if(ok){
-    tilde.className = 'tilde';
-    tilde.textContent = '✓';
-    tit.textContent = 'Votos registrados';
-    txt.innerHTML = 'La mesa <b>' + m + '</b> quedó guardada. Ya está en la pantalla del salón.';
-  } else {
-    listo.classList.add('falla');
-    tilde.className = 'tilde falla';
-    tilde.textContent = '!';
-    tit.textContent = 'No se pudo confirmar';
-    txt.innerHTML = 'Los votos de la mesa <b>' + m + '</b> no aparecen en la planilla. ' +
-      'Probá de nuevo y, si sigue igual, avisale al equipo del taller.';
-  }
-}
+  form.addEventListener('submit', async function(ev){
+    ev.preventDefault();
+    alerta.classList.remove('show');
 
-document.getElementById('reintentar').addEventListener('click', () => {
-  const m = parseInt(mesa.value, 10);
-  if(m) enviar(m);
-});
+    var d = {
+      nombre:        document.getElementById('nombre').value,
+      claustro:      document.getElementById('claustro').value,
+      claustro_otro: document.getElementById('claustro-otro').value,
+      telefono:      document.getElementById('telefono').value
+    };
+    if (!validar(d)) return;
 
-document.getElementById('corregir').addEventListener('click', () => {
-  listo.classList.remove('on');
-  form.style.display = '';
-  pie.style.display  = '';
-  forzar = false;
-  btn.textContent = 'Enviar';
-  refrescar();
-  window.scrollTo(0,0);
-});
+    // El claustro viaja en una sola columna: "Otro: <detalle>"
+    var claustroFinal = (d.claustro === 'Otro')
+      ? 'Otro: ' + d.claustro_otro.trim()
+      : d.claustro;
+
+    if (!SCRIPT_URL){
+      mostrarError('El formulario todavía no está conectado a la planilla. Falta cargar la URL del Web App en SCRIPT_URL.');
+      return;
+    }
+
+    boton.disabled = true;
+    boton.textContent = 'Enviando…';
+    try{
+      await enviar({ nombre: d.nombre, claustro: claustroFinal, telefono: d.telefono, taller: '2' });
+      document.getElementById('paso-form').style.display = 'none';
+      document.getElementById('eyebrow').innerHTML = '<span></span>Gracias por sumarte';
+      document.getElementById('saludo').textContent = 'Listo, ' + d.nombre.trim().split(/\s+/)[0] + '. Te esperamos.';
+      document.getElementById('ok-nombre').textContent   = d.nombre.trim();
+      document.getElementById('ok-claustro').textContent = claustroFinal;
+      document.getElementById('ok-telefono').textContent = d.telefono.trim();
+      var ok = document.getElementById('paso-ok');
+      ok.classList.add('show');
+      ok.focus();
+      window.scrollTo({top:0, behavior:'smooth'});
+    }catch(err){
+      boton.disabled = false;
+      boton.textContent = 'Confirmar mi inscripción';
+      mostrarError((err && err.message) ? err.message : 'No pudimos registrar la inscripción. Revisá tu conexión y volvé a intentar.');
+    }
+  });
+
+  // Muestra el detalle solo cuando el claustro es "Otro"
+  var selClaustro = document.getElementById('claustro');
+  var campoOtro   = document.getElementById('f-otro');
+  selClaustro.addEventListener('change', function(){
+    var esOtro = selClaustro.value === 'Otro';
+    campoOtro.hidden = !esOtro;
+    if (esOtro) { document.getElementById('claustro-otro').focus(); }
+    else { document.getElementById('claustro-otro').value = ''; setError('f-otro', false); }
+  });
+
+  // Limpia el estado de error apenas la persona corrige
+  ['nombre','claustro','claustro-otro','telefono'].forEach(function(id){
+    var el = document.getElementById(id);
+    var campo = (id === 'claustro-otro') ? 'f-otro' : 'f-'+id;
+    el.addEventListener('input',  function(){ setError(campo, false); });
+    el.addEventListener('change', function(){ setError(campo, false); });
+  });
+})();
 </script>
 </body>
 </html>
