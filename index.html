@@ -1,1 +1,386 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>¿En qué mesa estoy? — 2º Taller PEDI-FOUNNE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B3F71;
+    --navy-2:#14507F;
+    --light:#F5F6FA;
+    --white:#FFFFFF;
+    --violet:#7654A0;
+    --violet-l:#B5A5CD;
+    --blue-l:#9BB4D2;
+    --blue-t:#C5D5E8;
+    --gray:#64708A;
+    --line:#DCE1EA;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:var(--light);
+    font-family:'Archivo', Arial, sans-serif;
+    color:var(--navy);
+    display:flex;
+    flex-direction:column;
+  }
 
+  /* ---------- cabecera institucional ---------- */
+  header{background:var(--navy);padding:clamp(28px,7vw,44px) clamp(22px,6vw,34px) clamp(20px,5vw,30px);}
+  .eyebrow{
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--blue-l);
+    font-size:clamp(12px,3.1vw,14px);
+    margin:0 0 10px;
+  }
+  h1{
+    font-size:clamp(30px,8.4vw,40px);
+    font-weight:700;line-height:1.1;color:var(--light);
+    margin:0;
+  }
+  .rule{width:92px;height:6px;background:var(--violet);border-radius:3px;margin-top:18px;}
+  .wave{display:block;width:100%;height:auto;margin-top:-1px;}
+
+  main{flex:1;width:100%;max-width:460px;margin:0 auto;padding:clamp(24px,6vw,34px) clamp(22px,6vw,28px) 40px;}
+
+  .lead{font-size:clamp(15px,3.8vw,16.5px);line-height:1.5;color:var(--gray);margin:0 0 clamp(22px,5vw,28px);}
+
+  label{
+    display:block;
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+    font-size:clamp(12px,3vw,13px);
+    color:var(--violet);
+    margin-bottom:9px;
+  }
+  input[type="text"], select{
+    width:100%;
+    font-family:'Archivo', Arial, sans-serif;
+    font-weight:600;
+    font-size:clamp(16px,4.2vw,18px);
+    padding:15px 16px;
+    border-radius:10px;
+    border:1.5px solid var(--line);
+    background:var(--white);
+    color:var(--navy);
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  input[type="text"]:focus, select:focus{
+    border-color:var(--navy);
+    box-shadow:0 0 0 4px rgba(11,63,113,.12);
+  }
+  input[type="text"]::placeholder{color:#98A3B6;font-weight:400;}
+  select{
+    -webkit-appearance:none;appearance:none;
+    background-image:linear-gradient(45deg,transparent 50%,var(--navy) 50%),linear-gradient(135deg,var(--navy) 50%,transparent 50%);
+    background-position:calc(100% - 21px) calc(50% + 2px),calc(100% - 15px) calc(50% + 2px);
+    background-size:6px 6px,6px 6px;
+    background-repeat:no-repeat;
+  }
+  .hint{font-size:clamp(12.5px,3.1vw,13.5px);color:var(--gray);margin:9px 0 0;}
+  .field{margin-top:22px;}
+
+  .go{
+    display:block;width:100%;margin-top:26px;
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+    font-size:clamp(14px,3.6vw,15.5px);
+    padding:17px 0;border:none;border-radius:10px;cursor:pointer;
+    background:var(--navy);color:var(--light);
+    transition:background .15s ease, transform .1s ease;
+  }
+  .go:hover{background:var(--navy-2);}
+  .go:active{transform:scale(.985);}
+
+  .results{margin-top:clamp(24px,6vw,32px);}
+
+  /* ---------- resultado ---------- */
+  .mesa-label{
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.2em;
+    font-size:clamp(13px,3.3vw,14px);color:var(--gray);
+    text-align:center;margin:0 0 12px;
+  }
+  .mesa-box{
+    background:var(--white);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:clamp(18px,5vw,26px) 16px;
+    text-align:center;
+    animation:rise .3s ease both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .coord{
+    margin:14px 0 0;padding:12px 14px;border-radius:12px;
+    background:var(--bg-soft,#F2F5F9);border:1px solid var(--line,#DCE3EC);
+    font-size:.95rem;font-weight:700;color:var(--ink,#16233A);
+  }
+  .coord span{
+    display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+    font-weight:800;color:var(--muted,#5E6C82);margin-bottom:3px;
+  }
+  .mesa-number{
+    font-size:clamp(76px,22vw,104px);
+    font-weight:700;line-height:1;color:var(--navy);
+    font-variant-numeric:tabular-nums;
+  }
+  .persona{
+    margin:18px 0 0;text-align:center;
+  }
+  .persona .nombre{font-size:clamp(16px,4.2vw,18px);font-weight:600;color:var(--navy);}
+  .persona .claustro{
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+    font-size:clamp(12px,3vw,13px);color:var(--gray);margin-top:4px;
+  }
+  .caption{font-size:clamp(13.5px,3.4vw,14.5px);color:var(--gray);text-align:center;margin:16px 0 0;line-height:1.5;}
+
+  .aviso{
+    margin-top:18px;
+    background:rgba(118,84,160,.07);
+    border:1.5px solid var(--line);
+    border-left:4px solid var(--violet);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:clamp(13px,3.3vw,14px);line-height:1.5;color:var(--navy);
+  }
+  .aviso strong{color:var(--violet);}
+
+  .nota{
+    background:var(--white);
+    border:1.5px solid var(--line);
+    border-left:4px solid var(--violet);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:clamp(13.5px,3.4vw,14.5px);line-height:1.5;color:var(--navy);
+  }
+  .nota strong{color:var(--violet);}
+
+  /* ---------- varias coincidencias ---------- */
+  .matchlist{display:flex;flex-direction:column;gap:10px;}
+  .match-item{
+    text-align:left;width:100%;
+    background:var(--white);
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:13px 15px;
+    font-family:'Archivo', Arial, sans-serif;
+    cursor:pointer;
+    transition:border-color .15s ease, transform .1s ease;
+  }
+  .match-item:hover{border-color:var(--navy);}
+  .match-item:active{transform:scale(.98);}
+  .match-name{font-weight:600;font-size:clamp(14.5px,3.7vw,15.5px);color:var(--navy);}
+  .match-claustro{
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+    font-size:clamp(11.5px,2.9vw,12.5px);color:var(--gray);margin-top:3px;
+  }
+
+  .change-search{
+    display:block;width:100%;text-align:center;
+    background:none;border:none;cursor:pointer;
+    font-family:'Archivo Narrow', 'Arial Narrow', sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.11em;
+    font-size:clamp(12.5px,3.1vw,13.5px);color:var(--violet);
+    text-decoration:underline;text-underline-offset:3px;
+    padding:20px 0 0;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    margin:0 clamp(22px,6vw,28px);
+    padding:20px 0 30px;
+    text-align:center;
+    font-size:clamp(11.5px,2.9vw,12.5px);
+    line-height:1.5;
+    color:var(--gray);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Taller Participativo 2 · PEDI 2027–2032</p>
+  <h1>¿En qué mesa<br>estoy?</h1>
+  <div class="rule"></div>
+</header>
+<svg class="wave" viewBox="0 0 1920 92" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  <defs><linearGradient id="onda" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#4096AB"/><stop offset="0.55" stop-color="#4B7AB2"/><stop offset="1" stop-color="#7654A0"/>
+  </linearGradient></defs>
+  <path d="M0 0H1920V70Q960 -40 0 70Z" fill="#0B3F71"/>
+  <path d="M0 70Q960 -40 1920 70" fill="none" stroke="url(#onda)" stroke-width="10"/>
+</svg>
+
+<main>
+  <p class="lead">Escribí tu apellido para ver en qué mesa te toca sentarte.</p>
+
+  <label for="q">Apellido y nombre</label>
+  <input type="text" id="q" placeholder="Ej: Gómez Ana" autocomplete="off" autocapitalize="words">
+  <p class="hint">Podés escribir solo el apellido.</p>
+
+  <button class="go" id="goBtn">Ver mi mesa</button>
+
+  <div class="results" id="results"></div>
+</main>
+
+<footer>
+  Plan Estratégico de Desarrollo Institucional · Facultad de Odontología · UNNE
+</footer>
+
+<script>
+const DATA = [{"n": "Alejandro Horacio Aquino", "c": "Docente", "m": 1}, {"n": "Alejandro Joaquin Encina Tutuy", "c": "Docente", "m": 1}, {"n": "Andrés Benetti", "c": "Docente", "m": 1}, {"n": "MARIA ESTER RESOAGLI", "c": "Docente", "m": 1}, {"n": "Natalia Belen Montiel", "c": "Docente", "m": 1}, {"n": "Victoria Fernanda Lopez", "c": "Docente", "m": 1}, {"n": "Maria Carla Velar", "c": "Personal no docente", "m": 1}, {"n": "Maria Laura Rosende", "c": "Personal no docente", "m": 1}, {"n": "Alana Rodríguez Villa", "c": "Estudiante de grado", "m": 1}, {"n": "Nicolás Ezequiel Llarens", "c": "Estudiante de grado", "m": 1}, {"n": "Edgardo Daniel Acevedo", "c": "Investigador/a", "m": 1}, {"n": "Melisa Raquel Lezcano", "c": "Investigador/a", "m": 1}, {"n": "Alvaro Monzon Wyngaard", "c": "Docente", "m": 2}, {"n": "Karina Latyn", "c": "Docente", "m": 2}, {"n": "Pedro Luis Fortin", "c": "Docente", "m": 2}, {"n": "Juan Antonio Cancino", "c": "Personal no docente", "m": 2}, {"n": "Lorena fernanda Ruiz", "c": "Personal no docente", "m": 2}, {"n": "Ramirez Viviana Elizabeth", "c": "Personal no docente", "m": 2}, {"n": "Bianca Leguizamón", "c": "Estudiante de grado", "m": 2}, {"n": "Lelia Inés Ramirez", "c": "Investigador/a", "m": 2}, {"n": "Maria Silvina Dho", "c": "Docente", "m": 3}, {"n": "Romina Brabo Guerra", "c": "Docente", "m": 3}, {"n": "Roxana Edith Ojeda", "c": "Docente", "m": 3}, {"n": "Segovia Silvia Mariana", "c": "Docente", "m": 3}, {"n": "Natalia Lorena Arduña Medina", "c": "Personal no docente", "m": 3}, {"n": "Orlando Javier Falcón", "c": "Personal no docente", "m": 3}, {"n": "Néstor Arturo Sanabria", "c": "Estudiante de grado", "m": 3}, {"n": "Diana Emilia Falcón", "c": "Investigador/a", "m": 3}, {"n": "Cristina Elena Encina", "c": "Docente", "m": 4}, {"n": "Graciel monica gualdoni", "c": "Docente", "m": 4}, {"n": "Macarena Costantin", "c": "Docente", "m": 4}, {"n": "Nilda Maria del Rosario Alvarez", "c": "Docente", "m": 4}, {"n": "Sergio Ariel Zapata", "c": "Personal no docente", "m": 4}, {"n": "Lopez, Dolores Belén", "c": "Estudiante de grado", "m": 4}, {"n": "Milagros Agostina Benitez Vallejos", "c": "Estudiante de grado", "m": 4}, {"n": "Viviana Piatti", "c": "Investigador/a", "m": 4}, {"n": "José Osvaldo Olivarez", "c": "Docente", "m": 5}, {"n": "Martín Omar Montiel", "c": "Docente", "m": 5}, {"n": "Nicolás alegre", "c": "Docente", "m": 5}, {"n": "Rosana Araceli Otaño", "c": "Docente", "m": 5}, {"n": "EDGARDO OMAR GAGLIARDONE", "c": "Personal no docente", "m": 5}, {"n": "Yanela Nicole Mendez", "c": "Estudiante de grado", "m": 5}, {"n": "Yulán, Pablo Darío", "c": "Estudiante de grado", "m": 5}, {"n": "Carlos Daniel Lugo De Langhe", "c": "Investigador/a", "m": 5}, {"n": "Carlos ruben caramello", "c": "Docente", "m": 6}, {"n": "Cinthia Meza Gutierrez", "c": "Docente", "m": 6}, {"n": "guillermo raul pessini mierez", "c": "Docente", "m": 6}, {"n": "Rosa Fabiana Puretz", "c": "Docente", "m": 6}, {"n": "Alejandro Nicolás Veira", "c": "Personal no docente", "m": 6}, {"n": "Francesca Carla Casco", "c": "Estudiante de grado", "m": 6}, {"n": "Romero Agostina Maria Itati", "c": "Estudiante de grado", "m": 6}, {"n": "Maria Natalia Mandri", "c": "Investigador/a", "m": 6}, {"n": "Arias Gorman Iona Liliana", "c": "Docente", "m": 7}, {"n": "Galadys Mercedes Rúveda", "c": "Docente", "m": 7}, {"n": "María Antonia Acosta", "c": "Docente", "m": 7}, {"n": "Silvia Rita Pérez", "c": "Docente", "m": 7}, {"n": "Liliana María José ROMERO", "c": "Personal no docente", "m": 7}, {"n": "Celene Ayala", "c": "Estudiante de grado", "m": 7}, {"n": "Quiroz Gimena Evelyn", "c": "Estudiante de grado", "m": 7}, {"n": "Agustina Michelon", "c": "Graduado/a", "m": 7}, {"n": "Arturo Gorodner", "c": "Docente", "m": 8}, {"n": "Horacio Javier Romero", "c": "Docente", "m": 8}, {"n": "Virginia Rosende", "c": "Docente", "m": 8}, {"n": "elida cristina romero", "c": "Personal no docente", "m": 8}, {"n": "Elizabeth Ramírez", "c": "Personal no docente", "m": 8}, {"n": "Aillen Abigail Almua", "c": "Estudiante de grado", "m": 8}, {"n": "Perez Verónica Viviana", "c": "Estudiante de grado", "m": 8}, {"n": "Veronica Cruz", "c": "Graduado/a", "m": 8}, {"n": "Andrea Veronica Galiana", "c": "Docente", "m": 9}, {"n": "ELIDA MYRIAM FAGES", "c": "Docente", "m": 9}, {"n": "Maria de las Mercedes Medina", "c": "Docente", "m": 9}, {"n": "Mendiaz Joaquin Aitor", "c": "Personal no docente", "m": 9}, {"n": "YOLANDA BEATRIZ ROMAN", "c": "Personal no docente", "m": 9}, {"n": "Juan jose pared ferreira", "c": "Estudiante de grado", "m": 9}, {"n": "Mendoza María Victoria", "c": "Estudiante de grado", "m": 9}, {"n": "Claudia Helman", "c": "Graduado/a", "m": 9}, {"n": "ARMANDO CESAR CELÍA", "c": "Docente", "m": 10}, {"n": "Miguel Angel Vera", "c": "Docente", "m": 10}, {"n": "Samuel Federico Gómez", "c": "Docente", "m": 10}, {"n": "Carlos Encina", "c": "Personal no docente", "m": 10}, {"n": "RITA IGNACIA, MAMBRIN", "c": "Personal no docente", "m": 10}, {"n": "Gustavo Alejandro Boniardi", "c": "Estudiante de grado", "m": 10}, {"n": "Maria Belen Fernández Alfonzo", "c": "Estudiante de grado", "m": 10}, {"n": "Moralez Hanuch Olga", "c": "Graduado/a", "m": 10}, {"n": "Altamirano Ricardo Hugo", "c": "Docente", "m": 11}, {"n": "Maria Cecilia Alvarez Martin", "c": "Docente", "m": 11}, {"n": "Roque Antonio Luis Pasetto", "c": "Docente", "m": 11}, {"n": "Lucas fernandez", "c": "Personal no docente", "m": 11}, {"n": "Marcela Alejandra Solís", "c": "Personal no docente", "m": 11}, {"n": "Carlos Landaburo", "c": "Estudiante de grado", "m": 11}, {"n": "Juan José Christiani", "c": "Investigador/a", "m": 11}, {"n": "Mirtha Itati Aguirre Gutiérrez", "c": "Graduado/a", "m": 11}, {"n": "Fernando Ramiro Cuzziol", "c": "Docente", "m": 12}, {"n": "Florencia Aymara Encinas Nuñez", "c": "Docente", "m": 12}, {"n": "Viviana Leticia Barboza", "c": "Docente", "m": 12}, {"n": "Franco Sebastian Dominguez", "c": "Personal no docente", "m": 12}, {"n": "Saúl Edgardo de la Cruz Rodriguez", "c": "Personal no docente", "m": 12}, {"n": "Mariana Peñalva", "c": "Estudiante de grado", "m": 12}, {"n": "Sandra Elena Martínez", "c": "Investigador/a", "m": 12}, {"n": "Armando Emmanuel Gomez Sanches", "c": "Graduado/a", "m": 12}, {"n": "Elena Fabiola Sosa", "c": "Docente", "m": 13}, {"n": "JUAN MARCOS Vallejos", "c": "Docente", "m": 13}, {"n": "Maria Florencia Maldonado Seniquel", "c": "Docente", "m": 13}, {"n": "Angelica Alicia Perez", "c": "Personal no docente", "m": 13}, {"n": "Jessica Lorena Mendiaz", "c": "Personal no docente", "m": 13}, {"n": "Andrade Stefani Ana Sol", "c": "Estudiante de grado", "m": 13}, {"n": "Mariel Beatriz Galiana", "c": "Investigador/a", "m": 13}, {"n": "Andrea Fatima Lezcano", "c": "Graduado/a", "m": 13}, {"n": "Carolina Elizabet Barrios", "c": "Docente", "m": 14}, {"n": "José Alfredo Yaya", "c": "Docente", "m": 14}, {"n": "Toledo, Cristina Cecilia", "c": "Docente", "m": 14}, {"n": "María Cecilia Sánchez", "c": "Personal no docente", "m": 14}, {"n": "Ramona Magdalena Romero", "c": "Personal no docente", "m": 14}, {"n": "Marcelo Daniel Mansilla", "c": "Estudiante de grado", "m": 14}, {"n": "Ponce Jorge Orlando", "c": "Investigador/a", "m": 14}, {"n": "Diego Héctor Acevedo", "c": "Otro: Equipo de Comunicación Institucional de FOUNNE", "m": 14}, {"n": "Marina Beatriz Cabrera", "c": "Docente", "m": 15}, {"n": "Perez Quintana Noelia Evelyn", "c": "Docente", "m": 15}, {"n": "Viviana Karaben", "c": "Docente", "m": 15}, {"n": "Buena Nicolás de Jesús", "c": "Personal no docente", "m": 15}, {"n": "Sandra Monica Ferreyra", "c": "Personal no docente", "m": 15}, {"n": "Leal Cesar Ezequiel", "c": "Estudiante de grado", "m": 15}, {"n": "Carlos Alejandro Rosales", "c": "Investigador/a", "m": 15}, {"n": "Ana de Jesús Esquivel", "c": "Otro: pasante en el hospital odontologico", "m": 15}, {"n": "Griselda Arce", "c": "Docente", "m": 16}, {"n": "Jose Carlos Hidalgo", "c": "Docente", "m": 16}, {"n": "Karina Emylsen Trangoni", "c": "Docente", "m": 16}, {"n": "Laura Huber", "c": "Docente", "m": 16}, {"n": "Carmen Zacarias", "c": "Personal no docente", "m": 16}, {"n": "Maria Sara Bazzola", "c": "Personal no docente", "m": 16}, {"n": "Luisana Marisol Ferri", "c": "Estudiante de grado", "m": 16}, {"n": "Ana Eloísa Rea", "c": "Investigador/a", "m": 16}, {"n": "Cesar Enrique Gutierrez", "c": "Docente", "m": 17}, {"n": "Jorge Gabriel Ricardo Becchio", "c": "Docente", "m": 17}, {"n": "María Alejandra Gili", "c": "Docente", "m": 17}, {"n": "María Natalia Rosende", "c": "Docente", "m": 17}, {"n": "Ignacio Javier Rojas", "c": "Personal no docente", "m": 17}, {"n": "Ruben Dario Turrella", "c": "Personal no docente", "m": 17}, {"n": "Yuliana Valentina Rodriguez", "c": "Estudiante de grado", "m": 17}, {"n": "KARINA CYNTHIA VANESA OBREGÓN", "c": "Investigador/a", "m": 17}, {"n": "Cesar Rodolfo Telechea", "c": "Docente", "m": 18}, {"n": "Jorge alberto Toñanez Christoff", "c": "Docente", "m": 18}, {"n": "María Julia López Vallejos", "c": "Docente", "m": 18}, {"n": "Caamaño Ricardo Luis", "c": "Personal no docente", "m": 18}, {"n": "Félix María Ramón Delgado", "c": "Personal no docente", "m": 18}, {"n": "Noemí Elizabeth Rolon", "c": "Estudiante de grado", "m": 18}, {"n": "Víctor Ricardo Fernández", "c": "Investigador/a", "m": 18}, {"n": "Claudia Susana Machuca", "c": "Docente", "m": 19}, {"n": "Maria Lorena Cardoso", "c": "Docente", "m": 19}, {"n": "María Rosenda Britos", "c": "Docente", "m": 19}, {"n": "Adrián Ramón Sosa", "c": "Personal no docente", "m": 19}, {"n": "Benjamin Ariel Alejandro Luque", "c": "Personal no docente", "m": 19}, {"n": "Oriana A Penayo Yebrasky", "c": "Estudiante de grado", "m": 19}, {"n": "Acuña Miguel Jorge", "c": "Investigador/a", "m": 19}, {"n": "Agustina Romero", "c": "Docente", "m": 20}, {"n": "MARTA ROSANA BRIEND", "c": "Docente", "m": 20}, {"n": "Viviana Martha Rodriguez", "c": "Docente", "m": 20}, {"n": "Juan Facundo Castillo", "c": "Personal no docente", "m": 20}, {"n": "Rodrigo maximiliano Sánchez", "c": "Personal no docente", "m": 20}, {"n": "Milagros Aymara Rodríguez Morales", "c": "Estudiante de grado", "m": 20}, {"n": "Claudio Modenutti", "c": "Investigador/a", "m": 20}];
+const COORD = {"2": "Alana Rodríguez Villa", "3": "Alana Rodríguez Villa", "4": "Alejandro Horacio Aquino", "5": "Alejandro Horacio Aquino", "6": "Alejandro Joaquin Encina Tutuy", "7": "Alejandro Joaquin Encina Tutuy", "8": "Andrés Benetti", "9": "Andrés Benetti", "10": "Edgardo Daniel Acevedo", "11": "Edgardo Daniel Acevedo", "12": "Maria Carla Velar", "13": "Maria Carla Velar", "14": "MARIA ESTER RESOAGLI", "15": "MARIA ESTER RESOAGLI", "16": "Maria Laura Rosende", "17": "Maria Laura Rosende", "18": "Melisa Raquel Lezcano", "19": "Natalia Belen Montiel", "20": "Nicolás Ezequiel Llarens"};
+
+function normalize(s){
+  return s.normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+/* Clave "al oído": z/s, c/k, b/v, h muda, ll/y, j/g y letras dobles.
+   Sirve para que Olivares encuentre a Olivarez, Gomez a Gómes, etc. */
+function fonetica(t){
+  return t
+    .replace(/qu/g, 'k')
+    .replace(/c([ei])/g, 's$1')
+    .replace(/c/g, 'k')
+    .replace(/z/g, 's')
+    .replace(/h/g, '')
+    .replace(/v/g, 'b')
+    .replace(/ll/g, 'y')
+    .replace(/y/g, 'i')
+    .replace(/j/g, 'g')
+    .replace(/(.)\1+/g, '$1');
+}
+
+/* ¿Se diferencian en una sola letra? (una sustitución, una de más o una de menos) */
+function casiIgual(a, b){
+  if(Math.abs(a.length - b.length) > 1) return false;
+  let i = 0, j = 0, fallas = 0;
+  while(i < a.length && j < b.length){
+    if(a[i] === b[j]){ i++; j++; continue; }
+    if(++fallas > 1) return false;
+    if(a.length > b.length) i++;
+    else if(b.length > a.length) j++;
+    else { i++; j++; }
+  }
+  return fallas + (a.length - i) + (b.length - j) <= 1;
+}
+
+const INDEXED = DATA.map(p => {
+  const norm = normalize(p.n);
+  return {...p, norm, tokF: norm.split(' ').filter(Boolean).map(fonetica)};
+});
+
+const q = document.getElementById('q');
+const resultsEl = document.getElementById('results');
+
+/* Hash estable: la misma persona escribiendo lo mismo siempre cae en la misma
+   mesa, aunque cierre la página y vuelva a escanear el QR. */
+function hash(s){
+  let h = 2166136261;
+  for(let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return Math.abs(h);
+}
+
+function buscar(raw){
+  const n = normalize(raw);
+  if(n.length < 2) return { estado:'corto' };
+  const tokens = n.split(' ').filter(Boolean);
+
+  // 1) como está escrito
+  const m = INDEXED.filter(p => tokens.every(t => p.norm.includes(t)));
+  if(m.length === 1) return { estado:'uno', persona: m[0] };
+  if(m.length > 1)  return { estado:'varios', personas: m.slice(0, 8) };
+
+  // 2) tolerante a la ortografía, antes de darlo por no inscripto
+  const tf = tokens.map(fonetica);
+  const aprox = INDEXED.filter(p => tf.every(t =>
+    p.tokF.some(function(w){
+      // Pido 4 letras y largos parecidos: si no, la "A" de "Oriana A Penayo"
+      // matchea con cualquier cosa y la lista se llena de gente que no viene al caso.
+      if(w.length < 4 || t.length < 4) return w === t;
+      if(Math.abs(w.length - t.length) > 2) return false;
+      return w.includes(t) || t.includes(w) || casiIgual(w, t);
+    })
+  ));
+  if(aprox.length) return { estado:'parecidos', personas: aprox.slice(0, 8) };
+
+  return { estado:'ninguno' };
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function ticket(persona){
+  resultsEl.innerHTML = `
+    <p class="mesa-label">Mesa</p>
+    <div class="mesa-box">
+      <div class="mesa-number">${persona.m}</div>
+    </div>
+    <div class="persona">
+      <div class="nombre">${escapeHtml(persona.n.trim())}</div>
+      <div class="claustro">${escapeHtml(persona.c)}</div>
+    </div>
+    <p class="caption">Buscá el cartel con este número en la sala.</p>
+    ${COORD[persona.m] ? `<div class="coord"><span>Coordina</span>${escapeHtml(COORD[persona.m])}</div>` : ''}
+    <button class="change-search" id="otro">Buscar otro nombre</button>
+  `;
+  document.getElementById('otro').addEventListener('click', () => {
+    q.value = ''; resultsEl.innerHTML = ''; q.focus();
+  });
+}
+
+function listaCoincidencias(personas, aprox){
+  resultsEl.innerHTML = `
+    <p class="hint" style="margin:0 0 12px;">${aprox
+      ? 'No encontramos ese nombre exacto. ¿Sos alguno de estos?'
+      : 'Hay varias coincidencias, tocá tu nombre:'}</p>
+    <div class="matchlist">
+      ${personas.map((p,i) => `
+        <button class="match-item" data-i="${i}">
+          <div class="match-name">${escapeHtml(p.n.trim())}</div>
+          <div class="match-claustro">${escapeHtml(p.c)}</div>
+        </button>`).join('')}
+    </div>
+  `;
+  resultsEl.querySelectorAll('.match-item').forEach(b => {
+    b.addEventListener('click', () => ticket(personas[+b.dataset.i], false));
+  });
+}
+
+function nota(texto){
+  resultsEl.innerHTML = `<div class="nota">${texto}</div>`;
+}
+
+function resolver(){
+  const nombre = q.value.trim();
+  if(normalize(nombre).length < 2){
+    nota('<strong>Escribí tu apellido</strong> para poder buscarte.');
+    q.focus(); return;
+  }
+  const r = buscar(nombre);
+  if(r.estado === 'uno'){ ticket(r.persona); return; }
+  if(r.estado === 'varios'){ listaCoincidencias(r.personas, false); return; }
+  if(r.estado === 'parecidos'){ listaCoincidencias(r.personas, true); return; }
+
+  nota('<strong>No figurás en la lista de inscriptos.</strong><br>'
+     + 'Probá escribiendo solo el apellido, por si está cargado distinto. '
+     + 'Si tampoco aparece, acercate a la mesa de acreditación o buscá a un coordinador del taller: '
+     + 'ellos te asignan la mesa.');
+}
+
+document.getElementById('goBtn').addEventListener('click', resolver);
+q.addEventListener('keydown', e => { if(e.key === 'Enter') resolver(); });
+</script>
+</body>
+</html>
